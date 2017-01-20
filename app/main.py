@@ -7,7 +7,8 @@ user, pw, pw_repeat = '','',''
 while my_login.sign_in(user,pw) is False:
     select = int(raw_input("1. Sign in" + "\n" + "2. Create Account" + "\n" ))
     if select == 1:
-        pass
+        user = raw_input("Enter your user name: ")
+        pw = raw_input("Enter your password: ")
     if select == 2:
         user = raw_input("Select a user name: ")
         pw = raw_input("Choose a password.  Requires 7 characters minimum with one symbol: ")
@@ -32,25 +33,25 @@ while select != 0:
         if select == 1:
             select = raw_input("Add Todo:  ")
             my_todos.add_todo(select)
-        if select == 2:
+        elif select == 2:
             select = raw_input("Update Todo at number:  ")
             my_todos.update_todo(select)
-        if select == 3:
+        elif select == 3:
             select = raw_input("Delete Todo at number:  ")
             my_todos.delete_todo(select)
-        if select == 4:
+        elif select == 4:
             select = raw_input("Mark as complete at number:  ")
             my_todos.complete_todo(select)
-        if select == 5:
+        elif select == 5:
             select = raw_input("Delete all complete? 1. Yes 2. No  ")
             my_todos.delete_complete_todo()
-        if select == 6:
+        elif select == 6:
             pprint(my_todos.show_todo())
-        if select == 0:
+        elif select == 0:
             quit()
         else:
-            print("You have choosen, poorly.")
+            print("\n" + "You have choosen, poorly." + "\n" )
     except ValueError: 
-        print("Mighty hero!! You have discovered my secrets! To claim your prize, enter a number between 1 and 6")
+        print("\n" + "Mighty hero!! You have discovered my secrets! To claim your prize, enter a number between 1 and 6" + "\n" )
         
     
