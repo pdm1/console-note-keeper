@@ -1,16 +1,20 @@
 class Todo:
-    ALL_TODO = []
-    COMPLETED = []
+ 
+    def __init__(self,name):
+        self.name = name
+        self.all_todo =[]
+        self.all_completed =[]
 
         
     def add_todo(self, todo):
         if todo:
-            Todo.ALL_TODO.append(todo)
-            Todo.COMPLETED.append(False)
+            self.all_todo.append(todo)
+            self.all_completed.append(False)
         return
     
+    
     def show_todo(self):
-        for i, (done, todo) in enumerate(zip(Todo.COMPLETED, Todo.ALL_TODO)):
+        for i, (done, todo) in enumerate(zip(self.all_completed, self.all_todo)):
             print (i + 1,done,todo)
     
     def _is_valid_int(self, index):
@@ -22,7 +26,7 @@ class Todo:
         except:
             while isinstance(index,int) is False:
                 try:
-                    index = int(raw_input("Feed me a number between %d and %d: " % (1,len(Todo.ALL_TODO) )))
+                    index = int(raw_input("Feed me a number between %d and %d: " % (1,len(self.all_todo) )))
                 except ValueError:
                     print("Todo selection must be an integer.")  
         return index
@@ -33,7 +37,7 @@ class Todo:
         
         '''
         try:
-            index = int(raw_input("You Fool! Give me a number in range %d to %d " % (1,len(Todo.ALL_TODO) )))
+            index = int(raw_input("You Fool! Give me a number in range %d to %d " % (1,len(self.all_todo) )))
         except ValueError:
                 print("You ninny! I need a number!")        
         return index
@@ -41,32 +45,32 @@ class Todo:
     
     def delete_todo(self, num):
         index = self._is_valid_int(num)  
-        while index > len(Todo.ALL_TODO) or index == 0:
+        while index > len(self.all_todo) or index == 0:
             index = self._is_valid_range(index)
-        if index <= len(Todo.ALL_TODO):
-            old = Todo.ALL_TODO[index - 1]
-            del Todo.ALL_TODO[index - 1]
+        if index <= len(self.all_todo):
+            old = self.all_todo[index - 1]
+            del self.all_todo[index - 1]
             print("Deleted: ",old )
         return
     
     
     def update_todo(self, num):
         index = self._is_valid_int(num) 
-        while index > len(Todo.ALL_TODO) or index == 0:
+        while index > len(self.all_todo) or index == 0:
             index = self._is_valid_range(index)
-        if index <= len(Todo.ALL_TODO):
-            update = raw_input("Edit: %s  :" % (Todo.ALL_TODO[index - 1]))
-            Todo.ALL_TODO[index - 1] = update
+        if index <= len(self.all_todo):
+            update = raw_input("Edit: %s  :" % (self.all_todo[index - 1]))
+            self.all_todo[index - 1] = update
             print("Edit Complete")
         return
     
     def complete_todo(self,num):
         index = self._is_valid_int(num)
-        while index > len(Todo.COMPLETED) or index == 0:
+        while index > len(self.all_completed) or index == 0:
             index = self._is_valid_range(index)  
-        if index <= len(Todo.COMPLETED):
-            Todo.COMPLETED[index -1] = True
-            print("Todo Complete: ", (Todo.ALL_TODO[index -1]))
+        if index <= len(self.all_completed):
+            self.all_completed[index -1] = True
+            print("Todo Complete: ", (self.all_todo[index -1]))
         return
     
     def delete_complete_todo(self):
@@ -81,20 +85,23 @@ class Todo:
                     except ValueError:
                         print("RTFM! 1 == Yes. 2 == No.")
         if index == 1:
-            for i in Todo.COMPLETED:
+            for i in self.all_completed:
                 if i == True:
-                    del Todo.COMPLETED[i - 1]
-                    del Todo.ALL_TODO[i - 1]
+                    del self.all_completed[i - 1]
+                    del self.all_todo[i - 1]
         return
             
         
     
-
-          
+'''
+me = Todo("bob")
+get_todo = raw_input("What to add?  ")
+me.add_todo(get_todo)
+print me.all_todo
         
-            
-my_todos = Todo()    
-yarp = Todo()    
+'''            
+my_todos = Todo("Billy Bob")    
+yarp = Todo("Sally Sue")    
 get_todo = raw_input("What to add?  ")
 my_todos.add_todo(get_todo)
 get_todo = raw_input("What to add?  ")
@@ -114,4 +121,5 @@ my_todos.complete_todo(complete)
 my_todos.delete_complete_todo()
 print my_todos.show_todo()
 print yarp.show_todo()
+
     

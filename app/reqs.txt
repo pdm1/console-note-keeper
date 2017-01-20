@@ -1,0 +1,22 @@
+**Todo
+-User can add todo
+-User can edit a todo
+-User can delete todo
+-User can mark todo complete
+-User can delete all completed todos
+-User can retrieve specific todo lists from file
+-User can save specific todo lists to file
+
+**Login
+-User can create an account
+-User can login with said account
+-User todo lists are tied to user account
+-User can give access to their todo lists to another user
+
+**Interface
+-Option to sign up/login
+**new menu
+-Select Todo file to open
+-Add, update, delete, complete Todos
+-Save todo to file
+-Share todo list with another user
