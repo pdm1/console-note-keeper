@@ -9,6 +9,7 @@
 
 **Login
 -User can create an account
+-User PW is at least 7 Char, with one being a symbol
 -User can login with said account
 -User todo lists are tied to user account
 -User can give access to their todo lists to another user
