@@ -10,6 +10,15 @@ class Login:
         if self._password_check(user_pw, user_pw_repeat): #Check if PW is valid
             if user_name not in self.accounts:
                 self.accounts[user_name] = user_pw
+                return True
+        return False
+                
+    def sign_in(self, user_name, user_pw):
+        for key in self.accounts:
+            if self.accounts[user_name] == user_pw:
+                return True
+        print("No match")
+        return False
     
     def _password_check(self, user_pw, user_pw_repeat):
         if user_pw != user_pw_repeat:
@@ -29,7 +38,9 @@ class Login:
 
 me = Login()
 
-me.create_account("Bobby", "kitty12", "kitty12")
+me.create_account("Bobby", "kitty12^", "kitty12^")
+me.sign_in("Bobby", "kitty12^")
+me.sign_in("Bobby", "adsf^")
 print me.accounts
 
         
