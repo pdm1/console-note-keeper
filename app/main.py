@@ -5,18 +5,20 @@ from pprint import *
 my_login = Login()
 user, pw, pw_repeat = '','',''
 while my_login.sign_in(user,pw) is False:
-    select = int(raw_input("1. Sign in" + "\n" + "2. Create Account" + "\n" ))
-    if select == 1:
-        user = raw_input("Enter your user name: ")
-        pw = raw_input("Enter your password: ")
-    if select == 2:
-        user = raw_input("Select a user name: ")
-        pw = raw_input("Choose a password.  Requires 7 characters minimum with one symbol: ")
-        pw_repeat = raw_input("Please re-enter your password: ")
-        if my_login.create_account(user, pw, pw_repeat) is True:
-            print("Success. Welcome", user)
-            continue
-    
+    try:
+        select = int(raw_input("1. Sign in" + "\n" + "2. Create Account" + "\n" ))
+        if select == 1:
+            user = raw_input("Enter your user name: ")
+            pw = raw_input("Enter your password: ")
+        if select == 2:
+            user = raw_input("Select a user name: ")
+            pw = raw_input("Choose a password.  Requires 7 characters minimum with one symbol: ")
+            pw_repeat = raw_input("Please re-enter your password: ")
+            if my_login.create_account(user, pw, pw_repeat) is True:
+                print("Success. Welcome", user)
+                continue
+    except ValueError:
+        print("\n" + "Why don't we try this again." + "\n")
 
 my_todos = Todo(user) 
 select = -1
