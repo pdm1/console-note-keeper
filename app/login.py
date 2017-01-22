@@ -5,15 +5,7 @@ class Login:
     """
     def __init__(self):
         self.accounts = {None: "blank"}
-        
-    def create_account(self, user_name, user_pw, user_pw_repeat):
-        if self._password_check(user_pw, user_pw_repeat): #Check if PW is valid
-            if user_name not in self.accounts:
-                self.accounts[user_name] = user_pw
-                self._save_account(user_name, user_pw)
-                return True
-        return False
-    
+     
     def _save_account(self, user_name, user_pw):
         txt_file = open("credentials.txt", "a")
         txt_file.write("%s,%s\n" % (user_name, user_pw))
@@ -27,8 +19,18 @@ class Login:
             lines = lines.split(",") 
             self.accounts[lines[0]] = lines[1]
         return 
-        
-                
+    
+    def create_account(self, user_name, user_pw, user_pw_repeat):
+        if self._password_check(user_pw, user_pw_repeat): #Check if PW is valid
+            self._load_account()
+            if user_name in self.accounts:
+                print("User already exists")
+            elif user_name not in self.accounts:
+                self.accounts[user_name] = user_pw
+                self._save_account(user_name, user_pw)
+                return True
+        return False
+    
     def sign_in(self, user_name, user_pw):
         self._load_account()
         for key in self.accounts:
@@ -52,10 +54,5 @@ class Login:
             return True
         
             
-
-me = Login()
-
-me._load_account()
-print me.accounts
 
         
