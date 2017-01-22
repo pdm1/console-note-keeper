@@ -6,20 +6,6 @@ class Login:
     def __init__(self):
         self.accounts = {None: "blank"}
      
-    def _save_account(self, user_name, user_pw):
-        txt_file = open("credentials.txt", "a")
-        txt_file.write("%s,%s\n" % (user_name, user_pw))
-        txt_file.close()
-        
-    def _load_account(self):
-        with open('credentials.txt') as f:
-            content = f.readlines()
-        for lines in content:
-            lines = lines.strip("\n")
-            lines = lines.split(",") 
-            self.accounts[lines[0]] = lines[1]
-        return 
-    
     def create_account(self, user_name, user_pw, user_pw_repeat):
         if self._password_check(user_pw, user_pw_repeat): #Check if PW is valid
             self._load_account()
@@ -34,10 +20,26 @@ class Login:
     def sign_in(self, user_name, user_pw):
         self._load_account()
         for key in self.accounts:
-            if self.accounts[user_name] == user_pw:
-                return True
-        print("No match")
+            try:
+                if self.accounts[user_name] == user_pw:
+                    return True
+            except KeyError:
+                return False
         return False
+        
+    def _save_account(self, user_name, user_pw):
+        txt_file = open("credentials.txt", "a")
+        txt_file.write("%s,%s\n" % (user_name, user_pw))
+        txt_file.close()
+        
+    def _load_account(self):
+        with open('credentials.txt') as f:
+            content = f.readlines()
+        for lines in content:
+            lines = lines.strip("\n")
+            lines = lines.split(",") 
+            self.accounts[lines[0]] = lines[1]
+        return 
     
     def _password_check(self, user_pw, user_pw_repeat):
         if user_pw != user_pw_repeat:

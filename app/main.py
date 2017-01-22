@@ -3,14 +3,17 @@ from login import *
 from pprint import *
 
 my_login = Login()
-user, pw, pw_repeat = None, None, None
+user = pw = pw_repeat = None
 while my_login.sign_in(user,pw) is False:
     try:
         select = int(raw_input("1. Sign in" + "\n" + "2. Create Account" + "\n" ))
         if select == 1:
             user = raw_input("Enter your user name: ")
             pw = raw_input("Enter your password: ")
-            
+            if my_login.sign_in(user,pw) == True:
+                print("Welcome", user)
+            else:
+                print("\n" + "One more time..." + "\n")
         if select == 2:
             user = raw_input("Select a user name: ")
             pw = raw_input("Choose a password.  Requires 7 characters minimum with one symbol: ")
