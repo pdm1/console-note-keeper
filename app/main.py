@@ -58,6 +58,8 @@ while select != 0:
         elif select == 7:
             my_todos.save_todo()
         elif select == 8:
+            my_todos.get_files()
+            print("\n" + "Do not include '.txt' in the file name")
             my_todos.retrieve_todo()
         elif select == 0:
             quit()

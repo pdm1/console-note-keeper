@@ -66,7 +66,12 @@ class Todo:
             elif my_todos[i] != '':
                 self.all_todo.append(my_todos[i])
 
-        
+    def get_files(self):
+        user_name = re.sub(r"\s+", '_', self.name)
+        for file in os.listdir("todos/"+user_name):
+            if file.endswith(".txt"):
+                print(file)
+            
     def _is_valid_int(self, index):
         '''Check initial value to ensure type int
         
