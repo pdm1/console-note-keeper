@@ -33,6 +33,8 @@ while select != 0:
         "4. Complete Todo" + "\n" +
         "5. Delete all completed" + "\n" +
         "6. View all Todo" + "\n" +
+        "7. Save this list" + "\n" +
+        "8. Open saved list" + "\n" +
         "0. Quit")
     try:
         select = int(raw_input( "\n" + "Choose option: "))
@@ -53,6 +55,10 @@ while select != 0:
             my_todos.delete_complete_todo()
         elif select == 6:
             pprint(my_todos.show_todo())
+        elif select == 7:
+            my_todos.save_todo()
+        elif select == 8:
+            my_todos.retrieve_todo()
         elif select == 0:
             quit()
         else:
