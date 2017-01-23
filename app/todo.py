@@ -7,6 +7,10 @@ class Todo:
         self.name = name
         self.all_todo =[]
         self.all_completed =[]
+    
+    def create_new_list(self):
+        self.all_todo = []
+        self.all_completed = []
 
         
     def add_todo(self, todo):

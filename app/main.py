@@ -35,6 +35,7 @@ while select != 0:
         "6. View all Todo" + "\n" +
         "7. Save this list" + "\n" +
         "8. Open saved list" + "\n" +
+        "9. Create new list" + "\n" +
         "0. Quit")
     try:
         select = int(raw_input( "\n" + "Choose option: "))
@@ -61,6 +62,8 @@ while select != 0:
             my_todos.get_files()
             print("\n" + "Do not include '.txt' in the file name")
             my_todos.retrieve_todo()
+        elif select == 9:
+            my_todos.create_new_list()
         elif select == 0:
             quit()
         else:
