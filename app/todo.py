@@ -1,3 +1,6 @@
+import re
+import os
+
 class Todo:
  
     def __init__(self,name):
@@ -17,6 +20,53 @@ class Todo:
         for i, (done, todo) in enumerate(zip(self.all_completed, self.all_todo)):
             print (i + 1,done,todo)
     
+    def save_todo(self, fname=None):
+        """This really should have been a dictionary... 
+        get this to work... come back later and refactor
+        ... seriously.. fix this.. cause what follows is an abomination :(
+        """
+        
+        if fname == None:
+            fname = raw_input("Name this list:  ")
+        fname = re.sub(r"[^\w\s]", '', fname) # strip special characters from file name
+        fname = re.sub(r"\s+", '_', fname) # replace " " with _
+        user_name = re.sub(r"\s+", '_', self.name)
+        fname += ".txt"
+        path = os.path.join("todos/", user_name, fname)
+        if not os.path.exists("todos/"+user_name):
+            os.makedirs("todos/"+user_name)
+        file = open(path, "w")
+        for item in self.all_todo:
+            file.write(item + "\n")
+        file.write("****COMPLETE****\n") #<-- bleh.. such ugly
+        for item in self.all_completed:
+            file.write(str(item) + "\n")        
+        file.close
+        
+        return fname
+        
+    def retrieve_todo(self, fname=None):
+        self.all_todos = []
+        self.all_completed = []
+        my_todos = []
+        if fname == None:
+            fname = raw_input("List to retrieve:  ")
+        user_name = re.sub(r"\s+", '_', self.name)
+        path = os.path.join("todos/", user_name, fname + ".txt")
+        with open(path) as f:
+            content = f.readlines()
+        for lines in content:
+            lines = lines.strip("\n")
+            lines = lines.split("****COMPLETE****")
+            my_todos.append(lines[0])
+
+        for i in range(len(my_todos)):
+            if my_todos[i] == "True" or my_todos[i] == "False":
+                self.all_completed.append(my_todos[i])
+            elif my_todos[i] != '':
+                self.all_todo.append(my_todos[i])
+
+        
     def _is_valid_int(self, index):
         '''Check initial value to ensure type int
         
@@ -90,3 +140,25 @@ class Todo:
                     del self.all_completed[i - 1]
                     del self.all_todo[i - 1]
         return
+'''   
+me = Todo("billy bob")
+
+me.add_todo("cookies")
+me.add_todo("Buy milk")
+me.add_todo("get a life")
+me.complete_todo(1)
+
+me2 = Todo("SallySue")
+me2.add_todo("cookies")
+me2.add_todo("Buy milk")
+me2.add_todo("get a life")
+me2.complete_todo(2)
+print me.save_todo()
+print me2.save_todo()
+
+me.retrieve_todo("Test")
+
+print me.all_completed
+print me.all_todo
+print me.show_todo()
+'''
